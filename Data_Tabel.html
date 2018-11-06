@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DATA TABEL</title>
+    <style>
+            table {
+                width: 30%;
+                border: 1px double grey;
+                border-collapse: collapse;
+            }
+            th, td {
+                height: 30px;
+                border: 1px double grey;
+                border-collapse: collapse;
+            }
+        </style>
+</head>
+<body>
+    <center>
+    <br>
+    Nama: <input id="nama" type="text">
+    Tgl. Lahir: <input id="tgl" type="date">
+    Kota: <input id="kota" type="text>">
+    <br><br>
+    <button id="submit" value="12345" onclick="data(this.value)">S U B M I T</button>
+    <br><br>
+    <button type="button" onclick="namaAsc()">Sort Nama ↑</button>
+    <button type="button" onclick="namaDesc()">Sort Nama ↓</button>
+    <button type="button" onclick="usiaAsc()">Sort Usia ↑</button>
+    <button type="button" onclick="usiaDesc()">Sort Usia ↓</button>
+    <button type="button" onclick="kotaAsc()">Sort Kota ↑</button>
+    <button type="button" onclick="kotaDesc()">Sort Kota ↓</button>
+    <br><br>
+    <table>
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+    </table>
+    </center>
+    <script>
+        var user = []
+        var data = () => {
+            document.getElementById("thead").innerHTML =
+            '<tr><th>Nama</th><th colspan="3">Tanggal Lahir</th><th>Zodiak</th><th>Usia</th><th>Pensiun</th><th>Kota</th><th>Hapus</th></tr>'
+            
+            document.getElementById("tbody").innerHTML = ''
+            var tgLahir = document.getElementById("tgl").value
+            var tgLahir2 = new Date(tgLahir)
+            var tanggal = tgLahir2.getDate()
+            var monthList = [
+                    'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
+                    'Juli', 'Agustus', 'September', 'Oktober', 'Nopember', 'Desember'
+                ]
+            var bulan = monthList[tgLahir2.getMonth()]
+            var tahun = tgLahir2.getFullYear()
+            var thn = new Date()
+            var usia = thn.getFullYear() - tahun
+            var pensiun = usia - 55
+            
+            var zodSign = [
+                    'Capricorn', 'Aquarius', 'Pisces', 'Aries', 'Taurus', 'Gemini', 
+                    'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius'
+                ]
+            var zodiac = ''
+                switch (bulan) {
+                    case 'Januari':
+                        if(tanggal < 20) {
+                            zodiac = zodSign[0]
+                        } else {
+                            zodiac = zodSign[1]
+                        }
+                    break;
+                    case 'Februari':
+                        if(tanggal < 19) {
+                            zodiac = zodSign[1]
+                        } else {
+                            zodiac = zodSign[2]
+                        }
+                    break;
+                    case 'Maret':
+                        if(tanggal < 21) {
+                            zodiac = zodSign[2]
+                        } else {
+                            zodiac = zodSign[3]
+                        }
+                    break;
+                    case 'April':
+                        if(tanggal < 20) {
+                            zodiac = zodSign[3]
+                        } else {
+                            zodiac = zodSign[4]
+                        }
+                    break;
+                    case 'Mei':
+                        if(tanggal < 21) {
+                            zodiac = zodSign[4]
+                        } else {
+                            zodiac = zodSign[5]
+                        }
+                    break;
+                    case 'Juni':
+                        if(tanggal < 21) {
+                            zodiac = zodSign[5]
+                        } else {
+                            zodiac = zodSign[6]
+                        }
+                    break;
+                    case 'Juli':
+                        if(tanggal < 23) {
+                            zodiac = zodSign[6]
+                        } else {
+                            zodiac = zodSign[7]
+                        }
+                    break;
+                    case 'Agustus':
+                        if(tanggal < 23) {
+                            zodiac = zodSign[7]
+                        } else {
+                            zodiac = zodSign[8]
+                        }
+                    break;
+                    case 'September':
+                        if(tanggal < 23) {
+                            zodiac = zodSign[8]
+                        } else {
+                            zodiac = zodSign[9]
+                        }
+                    break;
+                    case 'Oktober':
+                        if(tanggal < 23) {
+                            zodiac = zodSign[9]
+                        } else {
+                            zodiac = zodSign[10]
+                        }
+                    break;
+                    case 'Nopember':
+                        if(tanggal < 22) {
+                            zodiac = zodSign[10]
+                        } else {
+                            zodiac = zodSign[11]
+                        }
+                    break;
+                    case 'Desember':
+                        if(tanggal < 22) {
+                            zodiac = zodSign[11]
+                        } else {
+                            zodiac = zodSign[1]
+                        }
+                    }    
+                
+            var dataUser = {
+                nama: document.getElementById("nama").value,
+                tanggal: tanggal,
+                bulan: bulan,
+                tahun: tahun,
+                zodiak: zodiac,
+                usia: usia,
+                pensiun: pensiun,
+                kota: document.getElementById("kota").value
+                
+            }
+            user.push(dataUser)
+            console.log(dataUser)
+
+            for (var i=0; i<user.length; i++) {
+                document.getElementById("tbody").innerHTML += 
+                '<tr>' + 
+                    '<td>' + user[i].nama + '</td>' +
+                    '<td>' + user[i].tanggal + '</td>' +
+                    '<td>' + user[i].bulan + '</td>' +
+                    '<td>' + user[i].tahun + '</td>' +
+                    '<td>' + user[i].zodiak + '</td>' +
+                    '<td>' + user[i].usia + '</td>' +
+                    '<td>' + user[i].pensiun + '</td>' +
+                    '<td>' + user[i].kota + '</td>' +
+                '</tr>'
+
+                
+            }
+        }
+
+        var namaAsc = () => {
+            document.getElementById("tbody").innerHTML = ''
+            for (i=0; i<user.length; i++) {
+                user.sort(function(a,b) {
+                    if(a.nama == b.nama) {
+                        return 0
+                    } else if (a.nama < b.nama) {
+                        return -1
+                    } else {
+                        return 1
+                    }
+                })
+                document.getElementById("tbody").innerHTML += 
+                '<tr>' + 
+                    '<td>' + user[i].nama + '</td>' +
+                    '<td>' + user[i].tanggal + '</td>' +
+                    '<td>' + user[i].bulan + '</td>' +
+                    '<td>' + user[i].tahun + '</td>' +
+                    '<td>' + user[i].zodiak + '</td>' +
+                    '<td>' + user[i].usia + '</td>' +
+                    '<td>' + user[i].pensiun + '</td>' +
+                    '<td>' + user[i].kota + '</td>' +
+                '</tr>'
+            }
+        }
+
+        var namaDesc = () => {
+            document.getElementById("tbody").innerHTML = ''
+            for (i=0; i<user.length; i++) {
+                user.sort(function(a,b) {
+                    if(a.nama == b.nama) {
+                        return 0
+                    } else if (a.nama < b.nama) {
+                        return 1
+                    } else {
+                        return -1
+                    }
+                })
+                document.getElementById("tbody").innerHTML += 
+                '<tr>' + 
+                    '<td>' + user[i].nama + '</td>' +
+                    '<td>' + user[i].tanggal + '</td>' +
+                    '<td>' + user[i].bulan + '</td>' +
+                    '<td>' + user[i].tahun + '</td>' +
+                    '<td>' + user[i].zodiak + '</td>' +
+                    '<td>' + user[i].usia + '</td>' +
+                    '<td>' + user[i].pensiun + '</td>' +
+                    '<td>' + user[i].kota + '</td>' +
+                '</tr>'
+            }
+        }
+        
+        var usiaAsc = () => {
+            document.getElementById("tbody").innerHTML = ''
+            for (i=0; i<user.length; i++) {
+                user.sort(function(a,b) {
+                    return a.usia - b.usia
+                })
+                document.getElementById("tbody").innerHTML += 
+                '<tr>' + 
+                    '<td>' + user[i].nama + '</td>' +
+                    '<td>' + user[i].tanggal + '</td>' +
+                    '<td>' + user[i].bulan + '</td>' +
+                    '<td>' + user[i].tahun + '</td>' +
+                    '<td>' + user[i].zodiak + '</td>' +
+                    '<td>' + user[i].usia + '</td>' +
+                    '<td>' + user[i].pensiun + '</td>' +
+                    '<td>' + user[i].kota + '</td>' +
+                '</tr>'
+            }
+        }
+
+        var usiaDesc = () => {
+            document.getElementById("tbody").innerHTML = ''
+            for (i=0; i<user.length; i++) {
+                user.sort(function(a,b) {
+                    return b.usia - a.usia
+                })
+                document.getElementById("tbody").innerHTML += 
+                '<tr>' + 
+                    '<td>' + user[i].nama + '</td>' +
+                    '<td>' + user[i].tanggal + '</td>' +
+                    '<td>' + user[i].bulan + '</td>' +
+                    '<td>' + user[i].tahun + '</td>' +
+                    '<td>' + user[i].zodiak + '</td>' +
+                    '<td>' + user[i].usia + '</td>' +
+                    '<td>' + user[i].pensiun + '</td>' +
+                    '<td>' + user[i].kota + '</td>' +
+                '</tr>'
+            }
+        }
+
+        var kotaAsc = () => {
+            document.getElementById("tbody").innerHTML = ''
+            for (i=0; i<user.length; i++) {
+                user.sort(function(a,b) {
+                    if(a.kota == b.kota) {
+                        return 0
+                    } else if (a.kota < b.kota) {
+                        return -1
+                    } else {
+                        return 1
+                    }
+                })
+                document.getElementById("tbody").innerHTML += 
+                '<tr>' + 
+                    '<td>' + user[i].nama + '</td>' +
+                    '<td>' + user[i].tanggal + '</td>' +
+                    '<td>' + user[i].bulan + '</td>' +
+                    '<td>' + user[i].tahun + '</td>' +
+                    '<td>' + user[i].zodiak + '</td>' +
+                    '<td>' + user[i].usia + '</td>' +
+                    '<td>' + user[i].pensiun + '</td>' +
+                    '<td>' + user[i].kota + '</td>' +
+                '</tr>'
+            }
+        }
+
+        var kotaDesc = () => {
+            document.getElementById("tbody").innerHTML = ''
+            for (i=0; i<user.length; i++) {
+                user.sort(function(a,b) {
+                    if(a.kota == b.kota) {
+                        return 0
+                    } else if (a.kota < b.kota) {
+                        return 1
+                    } else {
+                        return -1
+                    }
+                })
+                document.getElementById("tbody").innerHTML += 
+                '<tr>' + 
+                    '<td>' + user[i].nama + '</td>' +
+                    '<td>' + user[i].tanggal + '</td>' +
+                    '<td>' + user[i].bulan + '</td>' +
+                    '<td>' + user[i].tahun + '</td>' +
+                    '<td>' + user[i].zodiak + '</td>' +
+                    '<td>' + user[i].usia + '</td>' +
+                    '<td>' + user[i].pensiun + '</td>' +
+                    '<td>' + user[i].kota + '</td>' +
+                '</tr>'
+            }
+        }
+
+        console.log(user)
+        
+    </script>
+
+</body>
+</html>
